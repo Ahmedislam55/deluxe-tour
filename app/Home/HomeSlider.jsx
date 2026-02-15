@@ -4,6 +4,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
@@ -41,7 +42,7 @@ export default function HomeSlider() {
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"
-        speed={1000}
+        speed={1500}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -59,51 +60,97 @@ export default function HomeSlider() {
       >
         {sliderData.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative h-full w-full">
-              {/* Background Image */}
-              <div className="absolute inset-0">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Overlay Layer */}
-                <div className="absolute inset-0 bg-black/40" />
-              </div>
+            {({ isActive }) => (
+              <div className="relative h-full w-full overflow-hidden">
+                {/* Background Image Container */}
+                <motion.div
+                  initial={{ scale: 1.1 }}
+                  animate={isActive ? { scale: 1 } : { scale: 1.1 }}
+                  transition={{ duration: 6, ease: "easeOut" }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  {/* Overlay Layer */}
+                  <div className="absolute inset-0 bg-black/40" />
+                </motion.div>
 
-              {/* Content */}
-              <div className="relative z-10 h-full flex lg:items-end items-center pb-8">
-                <div className="w-full mt-14">
-                  <div className="lg:flex justify-between px-8">
-                    <h1 className="mb-4 max-w-4xl text-center lg:text-left animate-fade-in-left text-4xl font-bold text-white md:text-6xl lg:text-4xl font-serif">
-                      {slide.title}
-                    </h1>
-                    <p className="mb-8 max-w-2xl text-center lg:text-left animate-fade-in-right text-stone-200 ">
-                      {slide.subtitle}
-                    </p>
+                {/* Content */}
+                <div className="relative z-10 h-full flex lg:items-end items-center pb-24 lg:pb-32">
+                  <div className="container mx-auto px-8">
+                    <div className="max-w-7xl lg:flex items-end justify-between gap-12">
+                      <div className="flex-1 overflow-hidden">
+                        <AnimatePresence mode="wait">
+                          {isActive && (
+                            <motion.h1
+                              key={`title-${slide.id}`}
+                              initial={{ opacity: 0, x: -50 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: 50 }}
+                              transition={{
+                                duration: 0.8,
+                                ease: "easeOut",
+                                delay: 0.2,
+                              }}
+                              className="mb-6 lg:mb-0 text-3xl md:text-5xl lg:text-5xl font-bold text-white font-serif leading-tight drop-shadow-2xl text-center lg:text-left"
+                            >
+                              {slide.title}
+                            </motion.h1>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      <div className="flex-[0.8] overflow-hidden">
+                        <AnimatePresence mode="wait">
+                          {isActive && (
+                            <motion.p
+                              key={`subtitle-${slide.id}`}
+                              initial={{ opacity: 0, x: 50 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -50 }}
+                              transition={{
+                                duration: 0.8,
+                                ease: "easeOut",
+                                delay: 0.4,
+                              }}
+                              className="text-stone-100/90 text-lg md:text-xl lg:text-base leading-relaxed drop-shadow-lg text-center lg:text-left"
+                            >
+                              {slide.subtitle}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </SwiperSlide>
         ))}
       </Swiper>
 
+      {/* Pagination wrapper for custom styling if needed */}
+      <div className="swiper-pagination-custom absolute !bottom-10 !left-1/2 -translate-x-1/2 z-20" />
+
       <style jsx global>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .swiper-pagination-bullet {
+          background: white !important;
+          opacity: 0.5;
+          width: 12px;
+          height: 12px;
+          margin: 0 6px !important;
+          transition: all 0.3s ease;
         }
-        .animate-fade-in-left {
-          animation: fade-in-left 1s ease-out forwards;
+        .swiper-pagination-bullet-active {
+          opacity: 1;
+          background: #f59e0b !important;
+          width: 32px;
+          border-radius: 6px;
         }
       `}</style>
     </div>

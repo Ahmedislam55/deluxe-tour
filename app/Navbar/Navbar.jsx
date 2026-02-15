@@ -25,6 +25,7 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/image/logo.png";
@@ -81,14 +82,14 @@ export default function Navbar() {
       >
         <div className="container mx-auto flex justify-center md:justify-between items-center relative">
           {/* Contact Info (Desktop Only - Left) */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             <a
               href="mailto:info@deluxetourseg.com"
               className="flex items-center gap-2 text-xs md:text-sm font-medium transition-colors"
             >
               <MapPin
                 size={20}
-                className="text-[#0165B5] hover:text-amber-500 duration-300"
+                className="text-amber-500 hover:text-[#0165B5] duration-300"
               />
               <span className="text-zinc-600 duration-300 hover:scale-105">
                 info@deluxetourseg.com
@@ -100,7 +101,7 @@ export default function Navbar() {
             >
               <Phone
                 size={20}
-                className="text-[#0165B5] hover:text-amber-500 duration-300"
+                className="text-amber-500 hover:text-[#0165B5] duration-300"
               />
               <span className="text-zinc-600 duration-300 hover:scale-105">
                 +20 100 136 3330
@@ -109,70 +110,67 @@ export default function Navbar() {
           </div>
 
           {/* Social Icons (Mobile Only - Centered) */}
-          <div className="flex md:hidden items-center justify-center gap-6 w-full">
+          <div className="flex lg:hidden items-center justify-center gap-6 w-full">
             <a
               href="#"
-              className="text-[#0165B5] hover:text-amber-500 duration-300 transition-colors"
+              className="text-amber-500 hover:text-[#0165B5] duration-300 transition-colors"
             >
               <FaWhatsapp size={20} />
             </a>
             <a
               href="#"
-              className="text-[#0165B5] hover:text-amber-500 duration-300 transition-colors"
+              className="text-amber-500 hover:text-[#0165B5] duration-300 transition-colors"
             >
               <FaLinkedinIn size={20} />
             </a>
             <a
               href="#"
-              className="text-[#0165B5] hover:text-amber-500 duration-300 transition-colors"
+              className="text-amber-500 hover:text-[#0165B5] duration-300 transition-colors"
             >
               <FaYoutube size={20} />
             </a>
             <a
               href="#"
-              className="text-[#0165B5] hover:text-amber-500 duration-300 transition-colors"
+              className="text-amber-500 hover:text-[#0165B5] duration-300 transition-colors"
             >
               <FaFacebookF size={20} />
             </a>
           </div>
 
           {/* Social Icons & Language (Desktop Only - Right) */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <a
                 href="#"
-                className="transition-colors duration-300 bg-[#0165B5] text-white rounded"
+                className="transition-colors duration-300 text-amber-500 hover:text-[#0165B5] border-none "
               >
                 <FaWhatsapp
                   size={35}
-                  className="border p-2 rounded hover:border-none hover:bg-amber-500 duration-300"
+                  className="p-2 border-none duration-300"
                 />
               </a>
               <a
                 href="#"
-                className="transition-colors duration-300 bg-[#0165B5] text-white rounded"
+                className="transition-colors duration-300 text-amber-500 hover:text-[#0165B5] border-none "
               >
                 <FaFacebookF
                   size={35}
-                  className="border p-2 rounded hover:border-none hover:bg-amber-500 duration-300"
+                  className="p-2 border-none duration-300"
                 />
               </a>
               <a
                 href="#"
-                className="transition-colors duration-300 bg-[#0165B5] text-white rounded"
+                className="transition-colors duration-300 text-amber-500 hover:text-[#0165B5] border-none "
               >
-                <FaYoutube
-                  size={35}
-                  className="border p-2 rounded hover:border-none hover:bg-amber-500 duration-300"
-                />
+                <FaYoutube size={35} className="p-2 border-none duration-300" />
               </a>
               <a
                 href="#"
-                className="transition-colors duration-300 bg-[#0165B5] text-white rounded"
+                className="transition-colors duration-300 text-amber-500 hover:text-[#0165B5] border-none "
               >
                 <FaLinkedinIn
                   size={35}
-                  className="border p-2 rounded hover:border-none hover:bg-amber-500 duration-300"
+                  className="p-2 border-none duration-300"
                 />
               </a>
             </div>
@@ -180,7 +178,7 @@ export default function Navbar() {
             <div className="relative ml-2 lang-selector">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-1 transition-all duration-300 border-l border-[#0165B5] pl-4 font-bold text-sm text-[#0165B5] hover:text-[#0165B5] hover:border-[#0165B5] cursor-pointer hover:text-amber-500"
+                className="flex items-center gap-1 transition-all duration-300 border-l border-amber-500 pl-4 font-bold text-sm text-amber-500 hover:text-[#0165B5] hover:border-[#0165B5] cursor-pointer hover:text-[#0165B5]"
               >
                 <span>{lang}</span>
                 <svg
@@ -243,134 +241,195 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
       {/* Main Navbar - Links & CTA */}
       <nav
-        className={`w-full transition-all duration-300 ${scrolled ? "bg-white shadow-lg md:py-8 py-4" : "bg-transparent border-b border-white/10 py-4 md:py-8"}`}
+        className={`w-full transition-all duration-300 ${scrolled ? "bg-white shadow-lg py-4" : "bg-transparent border-b border-white/10 py-4"}`}
       >
-        <div className="container mx-auto px-6 flex justify-between md:justify-center items-center relative">
-          {/* Desktop Logo (Added) */}
-          <Link
-            href="/"
-            className="hidden md:flex items-center gap-2 group absolute left-10"
-          >
-            <Image
-              src={logo}
-              alt="delux tours egypt"
-              className="w-4 lg:w-14 hover:scale-105 duration-300"
-            />
-            <span
-              className={` ${styles.logoText} ${scrolled ? "text-[#0165B5]" : "text-white"} text-xl font-bold pl-2`}
-            >
-              Deluxe <br /> Tours{" "}
-            </span>
-          </Link>
-          {/* Mobile: Logo (Left) */}
-          <Link href="/" className="md:hidden block flex items-center gap-2">
-            <Image
-              src={logo}
-              alt="delux tours egypt"
-              width={80}
-              height={80}
-              className="w-14"
-            />
-            <span
-              className={` ${styles.logoText} ${scrolled ? "text-[#0165B5]" : "text-white"}  text-xl font-bold pl-2 `}
-            >
-              Deluxe <br /> Tours{" "}
-            </span>
-          </Link>
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10">
+          {/* Layout for XL and above (Single Tier) */}
+          <div className="hidden xl:flex items-center justify-between relative">
+            {/* Desktop Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <Image
+                src={logo}
+                alt="delux tours egypt"
+                className="w-14 hover:scale-105 duration-300"
+              />
+              <span
+                className={` ${styles.logoText} ${scrolled ? "text-black" : "text-white"} text-xl font-bold pl-2`}
+              >
+                Deluxe <br /> Tours{" "}
+              </span>
+            </Link>
 
-          {/* Mobile: Toggle Button (Right) */}
-          <button
-            className="md:hidden focus:outline-none text-amber-500 border py-1 px-2 rounded hover:bg-amber-500 hover:text-white hover:border-none cursor-pointer duration-300 "
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={28} /> : <MenuIcon size={28} />}
-          </button>
-
-          {/* Desktop Menu - Centered */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <div key={link.name} className="relative group">
-                <Link
-                  href={link.href}
-                  onClick={(e) => {
-                    if (link.dropdown) {
-                      e.preventDefault();
-                      setActiveDropdown(
-                        activeDropdown === link.name ? null : link.name,
-                      );
-                    }
-                  }}
-                  className={`relative tracking-wider font-bold flex items-center gap-1 transition-colors duration-300 group ${scrolled ? "text-[#0165B5]" : "text-white"} hover:text-amber-500 font-serif`}
-                >
-                  {link.name}
-                  {link.dropdown && (
-                    <ChevronDown
-                      size={18}
-                      className={`transition-transform duration-300 ${
-                        activeDropdown === link.name ? "rotate-180" : ""
-                      }`}
-                    />
-                  )}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-
-                {/* Dropdown Menu */}
-                {link.dropdown && (
-                  <div
-                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 min-w-[220px] bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 overflow-visible transform transition-all duration-300 z-[60] origin-top ${
-                      activeDropdown === link.name
-                        ? "opacity-100 visible translate-y-0 scale-100"
-                        : "opacity-0 invisible translate-y-4 scale-95"
-                    }`}
+            {/* Nav Links */}
+            <div className="flex items-center space-x-8">
+              {navLinks.map((link) => (
+                <div key={link.name} className="relative group">
+                  <Link
+                    href={link.href}
+                    onClick={(e) => {
+                      if (link.dropdown) {
+                        e.preventDefault();
+                        setActiveDropdown(
+                          activeDropdown === link.name ? null : link.name,
+                        );
+                      }
+                    }}
+                    className={`relative tracking-wider uppercase font-bold flex items-center gap-1 transition-colors duration-300 group ${scrolled ? "text-[#0165B5]" : "text-white"} hover:text-amber-500 font-serif`}
                   >
-                    {/* Arrow Indicator */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100 shadow-sm z-0"></div>
+                    {link.name}
+                    {link.dropdown && (
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 ${
+                          activeDropdown === link.name ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
 
-                    {/* Content */}
-                    <div className="relative z-10 bg-white rounded-2xl overflow-hidden py-2">
-                      {link.dropdown.map((subLink) => (
-                        <Link
-                          key={subLink.name}
-                          href={subLink.href}
-                          onClick={() => setActiveDropdown(null)}
-                          className="group/item flex items-center justify-between px-6 py-3 text-sm font-medium text-gray-600 hover:text-[#0165B5] hover:bg-gray-50 transition-all duration-300"
-                        >
-                          <span className="transform group-hover/item:translate-x-1 transition-transform duration-300">
-                            {subLink.name}
-                          </span>
-                          <ChevronDown
-                            size={14}
-                            className="-rotate-90 opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-[#0165B5]"
-                          />
-                        </Link>
-                      ))}
+                  {/* Dropdown Menu */}
+                  {link.dropdown && (
+                    <div
+                      className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 min-w-[220px] bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 overflow-visible transform transition-all duration-300 z-[60] origin-top ${
+                        activeDropdown === link.name
+                          ? "opacity-100 visible translate-y-0 scale-100"
+                          : "opacity-0 invisible translate-y-4 scale-95"
+                      }`}
+                    >
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100 shadow-sm z-0"></div>
+                      <div className="relative z-10 bg-white rounded-2xl overflow-hidden py-2">
+                        {link.dropdown.map((subLink) => (
+                          <Link
+                            key={subLink.name}
+                            href={subLink.href}
+                            onClick={() => setActiveDropdown(null)}
+                            className="group/item flex items-center justify-between px-6 py-3 text-sm font-medium text-gray-600 hover:text-[#0165B5] hover:bg-gray-50 transition-all duration-300"
+                          >
+                            <span className="transform group-hover/item:translate-x-1 transition-transform duration-300">
+                              {subLink.name}
+                            </span>
+                            <ChevronDown
+                              size={14}
+                              className="-rotate-90 opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-[#0165B5]"
+                            />
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* CTA & Search */}
+            <div className="flex items-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsSearchOpen(true)}
+                className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 group ${
+                  scrolled
+                    ? "bg-[#0165B5]/5 text-[#0165B5] hover:bg-[#0165B5] hover:text-white"
+                    : "bg-white/10 text-white hover:bg-white hover:text-amber-500"
+                }`}
+              >
+                <Search
+                  size={22}
+                  className="transition-transform duration-300 group-hover:rotate-12"
+                />
+                <span className="absolute inset-0 rounded-full border border-current opacity-10 scale-100 group-hover:scale-110 transition-transform duration-500" />
+              </motion.button>
+              <Link
+                href="/boooking"
+                className="px-4 py-3 font-serif font-bold text-base tracking-widest transition-all duration-300 border-none bg-amber-500 text-white hover:bg-[#0165B5]"
+              >
+                Tailor Made
+              </Link>
+            </div>
           </div>
 
-          {/* CTA Button - Absolute Right */}
-          <div className="hidden md:flex items-center gap-4 absolute right-10">
-            <button
-              onClick={() => setIsSearchOpen(true)}
-              className="transition-colors duration-300 bg-[#0165B5] hover:bg-amber-500 text-white text-[#0165B5] rounded"
-            >
-              <Search
-                size={35}
-                className="border cursor-pointer border-[#0165B5] p-2 rounded hover:border-none"
+          {/* Layout for Tablet & Mid-Size (MD:XL) - Two Tiers */}
+          <div className="hidden md:flex xl:hidden flex-col items-center gap-6">
+            <div className="w-full flex justify-between items-center">
+              {/* Tablet Logo */}
+              <Link href="/" className="flex items-center gap-2 group">
+                <Image src={logo} alt="delux tours egypt" className="w-12" />
+                <span
+                  className={` ${styles.logoText} ${scrolled ? "text-black" : "text-white"} text-lg font-bold pl-2`}
+                >
+                  Deluxe <br /> Tours{" "}
+                </span>
+              </Link>
+
+              {/* Tablet CTA & Search */}
+              <div className="flex items-center gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setIsSearchOpen(true)}
+                  className={`relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 group ${
+                    scrolled
+                      ? "bg-[#0165B5]/5 text-[#0165B5]"
+                      : "bg-white/10 text-white"
+                  }`}
+                >
+                  <Search size={20} />
+                </motion.button>
+                <Link
+                  href="/boooking"
+                  className="px-4 py-2 font-serif font-bold text-sm tracking-widest transition-all duration-300 bg-amber-500 text-white rounded"
+                >
+                  Tailor Made
+                </Link>
+                {/* Burger Button */}
+                <button
+                  className="focus:outline-none text-amber-500 border border-amber-500/20 py-1 px-2 rounded hover:bg-amber-500 hover:text-white transition-all duration-300"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <MenuIcon size={24} />
+                </button>
+              </div>
+            </div>
+
+            {/* Tablet Row 2: Navigation Links */}
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pb-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm uppercase font-bold tracking-widest transition-colors duration-300 ${scrolled ? "text-zinc-600" : "text-white/90"} hover:text-amber-500`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Layout for Mobile (Fixed Small Screens) */}
+          <div className="flex md:hidden justify-between items-center">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src={logo}
+                alt="delux tours egypt"
+                width={50}
+                height={50}
+                className="w-10"
               />
-            </button>
-            <Link
-              href="/boooking"
-              className="px-4 py-3 font-serif rounded font-bold text-base tracking-widest transition-all duration-300 border-none bg-[#0165B5] text-white hover:bg-amber-500"
-            >
-              Tailor Made
+              <span
+                className={` ${styles.logoText} ${scrolled ? "text-black" : "text-white"} text-base font-bold pl-1`}
+              >
+                Deluxe <br /> Tours{" "}
+              </span>
             </Link>
+            <button
+              className="focus:outline-none text-amber-500 border border-amber-500/20 py-1.5 px-2 rounded"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <MenuIcon size={24} />
+            </button>
           </div>
         </div>
       </nav>
@@ -379,7 +438,7 @@ export default function Navbar() {
       <Transition show={isOpen}>
         <Dialog
           as="div"
-          className="relative z-50 md:hidden"
+          className="relative z-50 lg:hidden"
           onClose={() => setIsOpen(false)}
         >
           {/* Backdrop */}
