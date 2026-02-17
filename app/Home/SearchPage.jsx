@@ -3,12 +3,7 @@
 import React, { useState } from "react";
 import { MapPin, Wallet, Search, ChevronDown } from "lucide-react";
 
-const destinations = [
-  "All Destinations",
-  "Egypt",
-  "Jordan",
-  "Any",
-];
+const destinations = ["All Destinations", "Egypt", "Jordan", "Any"];
 
 const budgets = [
   "All Budgets",
@@ -23,7 +18,7 @@ export default function SearchPage() {
   const [budget, setBudget] = useState(budgets[0]);
 
   return (
-    <section className="relative z-30 px-4 mb-20 mt-20">
+    <section className="md:absolute bottom-0 left-0 w-full md:translate-y-1/2 z-30 px-4 my-6 md:my-0">
       <div className="container mx-auto">
         <div className="bg-white rounded-2xl shadow-2xl p-6 lg:p-8 border border-stone-100">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">

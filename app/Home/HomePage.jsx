@@ -10,8 +10,8 @@ export default function HomePage() {
       <Navbar />
       <main className="relative">
         <HomeSlider />
+        <SearchPage />
       </main>
-      <SearchPage />
       <TripsPage />
     </>
   );

@@ -125,7 +125,7 @@ export default function HomeSlider() {
                 </motion.div>
 
                 {/* Content */}
-                <div className="relative z-10 h-full flex lg:items-end items-center pb-24 lg:pb-32">
+                <div className="relative z-10 h-full flex lg:items-end items-center pb-36 lg:pb-48">
                   <div className="container mx-auto px-8">
                     <div className="lg:flex items-end justify-between gap-12 mt-30">
                       <div className="flex-1 overflow-hidden">
@@ -199,7 +199,7 @@ export default function HomeSlider() {
       </Swiper>
 
       {/* Stationary Explore Button Overlay */}
-      <div className="absolute inset-0 z-20 pointer-events-none flex items-end pb-24 lg:pb-32">
+      <div className="absolute inset-0 z-20 pointer-events-none flex items-end pb-36 lg:pb-48">
         <div className="container mx-auto px-8">
           <div className="lg:flex items-end justify-between gap-12">
             {/* Spacer for Title/Subtitle */}
@@ -214,7 +214,7 @@ export default function HomeSlider() {
       </div>
 
       {/* Pagination wrapper for custom styling if needed */}
-      <div className="swiper-pagination-custom absolute !bottom-10 !left-1/2 -translate-x-1/2 z-20" />
+      <div className="swiper-pagination-custom absolute !bottom-28 !left-1/2 -translate-x-1/2 z-20" />
 
       <style jsx global>{`
         .swiper-pagination-bullet {
