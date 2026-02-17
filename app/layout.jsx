@@ -1,4 +1,4 @@
-import { Playfair_Display, Inter, Great_Vibes } from "next/font/google";
+import { Playfair_Display, DM_Sans, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -7,9 +7,9 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -29,9 +29,12 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${greatVibes.variable}`}
+      className={`${playfair.variable} ${dmSans.variable} ${greatVibes.variable}`}
+      style={{ scrollBehavior: "smooth" }}
     >
-      <body className="font-sans antialiased bg-stone-50 text-stone-900">
+      <body
+        className={`${dmSans.className} antialiased bg-stone-50 text-stone-900 overflow-x-hidden`}
+      >
         {children}
       </body>
     </html>

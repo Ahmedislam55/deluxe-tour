@@ -17,7 +17,7 @@ const tripData = [
     id: 1,
     title: "Giza Pyramids",
     description: "Witness the last of the ancient Seven Wonders of the World.",
-    image: "/image/2h-media-7_VPfRa073s-unsplash.jpg",
+    image: "/image/spencer-davis-ONVA6s03hg8-unsplash.jpg",
   },
   {
     id: 2,
@@ -27,15 +27,15 @@ const tripData = [
   },
   {
     id: 3,
-    title: "Religious Heritage Tour",
-    description: "A spiritual journey through Egypt's iconic holy sites.",
-    image: "/image/St-Virgin-Mary-Church-Maadi-Egypt-Trips-in-Egypt.jpg",
+    title: "Aswan & Abu Simbel",
+    description: "Marvel at the colossal statues of Ramses II and Nefertari.",
+    image: "/image/flying-carpet-Si1MFhSLNWY-unsplash.jpg",
   },
   {
     id: 4,
     title: "Nile Cruise Adventure",
     description: "Sail away on a luxury cruise between Luxor and Aswan.",
-    image: "/image/hamedtaha-6w05BdMmxy8-unsplash.jpg",
+    image: "/image/mo-gabrail-iuC3w8mLDcs-unsplash.jpg",
   },
   {
     id: 5,
@@ -77,7 +77,7 @@ export default function TripsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight"
+            className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight"
           >
             Featured Journeys
           </motion.h2>
@@ -157,7 +157,7 @@ export default function TripsPage() {
                   <div className="absolute inset-0 flex flex-col justify-end p-8 transition-colors duration-500">
                     {/* Title Wrapper - Moves up on hover */}
                     <div className="transition-transform duration-500 ease-out group-hover:-translate-y-4">
-                      <h3 className="text-2xl font-serif text-center font-bold mb-0 drop-shadow-xl leading-tight text-white">
+                      <h3 className="text-2xl text-center font-bold mb-0 drop-shadow-xl leading-tight text-white">
                         {trip.title}
                       </h3>
                     </div>

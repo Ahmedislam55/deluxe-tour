@@ -27,10 +27,12 @@ import {
 } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import logo from "@/public/image/logo.png";
 import styles from "./Navbar.module.css";
 export default function Navbar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -62,16 +64,16 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     {
       name: "Destinations",
-      href: "#",
+      href: "/destinations",
       dropdown: [
         { name: "Egypt", href: "/egypt" },
         { name: "Jordan", href: "/jordan" },
       ],
     },
-    { name: "Multy Country Tours", href: "/" },
-    { name: "Shore Excursions", href: "/" },
-    { name: "Blogs", href: "/" },
-    { name: "Contact", href: "/" },
+    { name: "Multy Country Tours", href: "/multy-country-tours" },
+    { name: "Shore Excursions", href: "/shore-excursions" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -256,7 +258,7 @@ export default function Navbar() {
                 className="w-14 hover:scale-105 duration-300"
               />
               <span
-                className={` ${styles.logoText} ${scrolled ? "text-black" : "text-white"} text-xl font-bold pl-2`}
+                className={`${scrolled ? "text-black" : "text-white"} text-xl font-bold pl-2`}
               >
                 Deluxe <br /> Tours{" "}
               </span>
@@ -276,7 +278,15 @@ export default function Navbar() {
                         );
                       }
                     }}
-                    className={`relative tracking-wider uppercase font-bold flex items-center gap-1 transition-colors duration-300 group ${scrolled ? "text-[#0165B5]" : "text-white"} hover:text-amber-500 font-serif`}
+                    className={`relative tracking-wider uppercase font-bold flex items-center gap-1 transition-colors duration-300 group ${
+                      pathname === link.href ||
+                      (link.dropdown &&
+                        link.dropdown.some((sub) => pathname === sub.href))
+                        ? "text-amber-500"
+                        : scrolled
+                          ? "text-[#0165B5]"
+                          : "text-white"
+                    } hover:text-amber-500`}
                   >
                     {link.name}
                     {link.dropdown && (
@@ -287,7 +297,9 @@ export default function Navbar() {
                         }`}
                       />
                     )}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                    <span
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-amber-500 transition-all duration-300 ${pathname === link.href || (link.dropdown && link.dropdown.some((sub) => pathname === sub.href)) ? "w-full" : "w-0 group-hover:w-full"}`}
+                    ></span>
                   </Link>
 
                   {/* Dropdown Menu */}
@@ -306,14 +318,14 @@ export default function Navbar() {
                             key={subLink.name}
                             href={subLink.href}
                             onClick={() => setActiveDropdown(null)}
-                            className="group/item flex items-center justify-between px-6 py-3 text-sm font-medium text-gray-600 hover:text-[#0165B5] hover:bg-gray-50 transition-all duration-300"
+                            className={`group/item flex items-center justify-between px-6 py-3 text-sm font-medium transition-all duration-300 ${pathname === subLink.href ? "text-amber-500 bg-gray-50" : "text-gray-600 hover:text-[#0165B5] hover:bg-gray-50"}`}
                           >
                             <span className="transform group-hover/item:translate-x-1 transition-transform duration-300">
                               {subLink.name}
                             </span>
                             <ChevronDown
                               size={14}
-                              className="-rotate-90 opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-[#0165B5]"
+                              className={`-rotate-90 opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 ${pathname === subLink.href ? "text-amber-500" : "text-[#0165B5]"}`}
                             />
                           </Link>
                         ))}
@@ -400,7 +412,15 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm uppercase font-bold tracking-widest transition-colors duration-300 ${scrolled ? "text-zinc-600" : "text-white/90"} hover:text-amber-500`}
+                  className={`text-sm uppercase font-bold tracking-widest transition-colors duration-300 ${
+                    pathname === link.href ||
+                    (link.dropdown &&
+                      link.dropdown.some((sub) => pathname === sub.href))
+                      ? "text-amber-500"
+                      : scrolled
+                        ? "text-zinc-600"
+                        : "text-white/90"
+                  } hover:text-amber-500`}
                 >
                   {link.name}
                 </Link>
@@ -518,10 +538,15 @@ export default function Navbar() {
                             }
                           }}
                           className={`group flex justify-between items-center p-3 rounded-xl transition-all duration-300 ${
-                            activeDropdown === link.name
+                            activeDropdown === link.name ||
+                            pathname === link.href ||
+                            (link.dropdown &&
+                              link.dropdown.some(
+                                (sub) => pathname === sub.href,
+                              ))
                               ? "bg-white/20 text-white shadow-lg backdrop-blur-md"
                               : "text-white/80 hover:bg-white/10 hover:text-white"
-                          }`}
+                          } ${pathname === link.href || (link.dropdown && link.dropdown.some((sub) => pathname === sub.href)) ? "text-amber-500" : ""}`}
                         >
                           <span className="font-bold text-base tracking-wide">
                             {link.name}
@@ -548,7 +573,7 @@ export default function Navbar() {
                                 key={subLink.name}
                                 href={subLink.href}
                                 onClick={() => setIsOpen(false)}
-                                className="block px-4 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 font-medium border-l-2 border-transparent hover:border-[#0165B5]"
+                                className={`block px-4 py-2 rounded-lg transition-all duration-300 font-medium border-l-2 hover:bg-white/10 ${pathname === subLink.href ? "text-amber-500 bg-white/20 border-amber-500" : "text-white/70 hover:text-white border-transparent hover:border-[#0165B5]"}`}
                                 style={{
                                   animation:
                                     activeDropdown === link.name
