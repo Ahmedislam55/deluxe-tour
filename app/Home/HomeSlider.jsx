@@ -156,7 +156,7 @@ export default function HomeSlider() {
                                   ease: "easeOut",
                                   delay: 0.2,
                                 }}
-                                className="mb-6 lg:mb-0 text-3xl md:text-5xl lg:text-5xl font-bold text-white leading-tight drop-shadow-2xl text-center lg:text-left"
+                                className="mb-6 font-[1000] lg:mb-0 text-3xl md:text-5xl lg:text-5xl text-white leading-tight drop-shadow-2xl text-center lg:text-left"
                               >
                                 {slide.title}
                               </motion.h1>
